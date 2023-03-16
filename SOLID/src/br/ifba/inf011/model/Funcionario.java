@@ -6,28 +6,17 @@ import java.util.Objects;
 
 import br.ifba.inf011.model.exception.RHException;
 
-public class Funcionario {
-	private String matricula;
-	private String nome;
-	private LocalDate dataAdmissao;
-	private BigDecimal salario;
-	private LocalDate dataUltimoReajuste;
-	private Cargo cargo;
-	private String email;
+public class Funcionario implements FuncionarioIF{
 	
-	public Funcionario(String matricula, String nome, BigDecimal salario, Cargo cargo) {
-		this.matricula = matricula;
-		this.nome = nome;
-		this.salario = salario;
-		this.cargo = cargo;
-		this.dataAdmissao = LocalDate.now();
-		this.dataUltimoReajuste = LocalDate.now();
-		this.email = matricula + "@minhaempresa.com";
+	private FichaCadastral ficha;
+	
+	public Funcionario(String matricula, String nome, BigDecimal salario, Classe classe) {
+		this.ficha = new FichaCadastral(matricula, nome, salario, classe);
 	}
-
+	
 	@Override
 	public int hashCode() {
-		return Objects.hash(matricula);
+		return Objects.hash(ficha);
 	}
 
 	@Override
@@ -39,23 +28,31 @@ public class Funcionario {
 		if (getClass() != obj.getClass())
 			return false;
 		Funcionario other = (Funcionario) obj;
-		return Objects.equals(matricula, other.matricula);
+		return Objects.equals(ficha, other.ficha);
 	}
+
+
+
 
 	@Override
 	public String toString() {
-		return "Funcionario [matricula=" + matricula + ", nome=" + nome + ", salario=" + salario + ", cargo=" + cargo
+		return "Funcionario [matricula=" + ficha.getMatricula() + ", nome=" + ficha.getNome() + ", salario=" + ficha.getSalario() + ", classe=" + ficha.getClasse()
 				+ "]";
 	}
 	
 	public void reajustar(BigDecimal novoSalario) throws RHException {
-		this.salario = novoSalario;
-		this.dataUltimoReajuste = LocalDate.now();
+		this.ficha.setSalario(novoSalario);
+		this.ficha.setDataUltimoReajuste(LocalDate.now());
 	}
 
 	public BigDecimal getSalario() {
-		return this.salario ;
+		return this.ficha.getSalario() ;
 	}
+
+	public void reclassificar() {
+		this.ficha.reclassificar();
+	}
+
 	
 	
 }
