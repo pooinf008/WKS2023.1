@@ -9,11 +9,22 @@ public class TermometroComTrava implements Termometro{
 	private double tempMaxima;
 	private boolean trava;
 		
+	public TermometroComTrava() {
+		this.tempMaxima = 28;
+	}
+	
 	public TermometroComTrava(Ambiente ambiente, double tempMaxima) {
 		this.ambiente = ambiente;
 		this.tempMaxima = tempMaxima;
 		this.trava = false;
 	}
+	
+	
+	
+	public void setAmbiente(Ambiente ambiente) {
+		this.ambiente = ambiente;
+	}	
+		
 	
 	public void reiniciar() {
 		this.trava = false;

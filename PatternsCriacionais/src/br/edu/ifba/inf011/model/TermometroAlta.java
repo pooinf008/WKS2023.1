@@ -8,10 +8,20 @@ public class TermometroAlta implements Termometro{
 	private Ambiente ambiente;
 	private double tempMaxima;
 	
+	public TermometroAlta() {
+		this.tempMaxima = 28;
+	}
+	
 	public TermometroAlta(Ambiente ambiente, double tempMaxima) {
 		this.ambiente = ambiente;
 		this.tempMaxima = tempMaxima;
 	}
+	
+	
+	public void setAmbiente(Ambiente ambiente) {
+		this.ambiente = ambiente;
+	}	
+		
 	
 	public void lerTemperatura() {
 		double temperatura = this.ambiente.getTemperatura();

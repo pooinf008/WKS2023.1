@@ -5,7 +5,16 @@ import br.edu.ifba.inf011.Termometro;
 
 public class TermometroBasico implements Termometro{
 	
+
+
 	private Ambiente ambiente;
+
+	public TermometroBasico() {
+	}
+	
+	public void setAmbiente(Ambiente ambiente) {
+		this.ambiente = ambiente;
+	}	
 	
 	public TermometroBasico(Ambiente ambiente) {
 		this.ambiente = ambiente;
