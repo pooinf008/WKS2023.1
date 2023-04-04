@@ -2,9 +2,9 @@ package br.edu.ifba.inf011.criacional.fm;
 
 import br.edu.ifba.inf011.Ambiente;
 import br.edu.ifba.inf011.Termometro;
-import br.edu.ifba.inf011.model.TermometroAlta;
-import br.edu.ifba.inf011.model.TermometroBasico;
-import br.edu.ifba.inf011.model.TermometroComTrava;
+import br.edu.ifba.inf011.model.termometros.TermometroAlta;
+import br.edu.ifba.inf011.model.termometros.TermometroBasico;
+import br.edu.ifba.inf011.model.termometros.TermometroComTrava;
 
 public class TermometroBaseFactory implements TermometroFactory{
 	

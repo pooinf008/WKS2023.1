@@ -19,6 +19,7 @@ public class Aplicacao {
 		while(true) {
 			this.ambiente.randomizar(2);
 			this.termometro.lerTemperatura();
+			
 			Thread.sleep(100);
 		}		
 	}

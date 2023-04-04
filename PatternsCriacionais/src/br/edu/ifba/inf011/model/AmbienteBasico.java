@@ -46,6 +46,13 @@ public class AmbienteBasico implements Ambiente{
 		else
 			this.aquecer(valor); 
 	}
+
+	@Override
+	public void setTemperaturaAtuacao(double temperaturaAtuacao) {
+		Random random = new Random();
+		double temperatura = random.nextDouble() * temperaturaAtuacao;
+		this.ultimaMedicao += temperatura;
+	}
 	
 	
 }

@@ -1,6 +1,6 @@
 package br.edu.ifba.inf011;
 
 public interface Termometro {
-	public void lerTemperatura();
+	public double lerTemperatura();
 	public void setAmbiente(Ambiente ambiente);
 }
