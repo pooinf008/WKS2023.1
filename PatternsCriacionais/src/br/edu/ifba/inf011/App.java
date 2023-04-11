@@ -13,7 +13,7 @@ import br.edu.ifba.inf011.criacional.fm.TipoTermometro;
 public class App {
 	
 	public static void main(String[] args) throws InterruptedException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException, FileNotFoundException, IOException {
-		(new Aplicacao3(new KitAlta())).monitorar();
+		(new Aplicacao4()).monitorar();
 	}
 
 }
