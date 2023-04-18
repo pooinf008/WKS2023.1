@@ -6,17 +6,18 @@ import br.edu.ifba.inf011.model.Ambiente;
 import br.edu.ifba.inf011.model.Atuador;
 import br.edu.ifba.inf011.model.Controlador;
 import br.edu.ifba.inf011.model.Termometro;
+import br.edu.ifba.inf011.model.termometros.TermometroAlta;
 
 public class ControladorBasico implements Controlador{
 	
 	private Ambiente ambiente;
-	private List<Termometro> termometros;
+	private List<? extends Termometro> termometros;
 	private Atuador atuador;
 	
-	public ControladorBasico(Ambiente ambiente, List<Termometro> termometros, 
+	public ControladorBasico(Ambiente ambiente, List<? extends Termometro> termometros2, 
 							  Atuador atuador) {
 		this.ambiente = ambiente;
-		this.termometros = termometros;
+		this.termometros = termometros2;
 		this.atuador = atuador;
 	}
 	

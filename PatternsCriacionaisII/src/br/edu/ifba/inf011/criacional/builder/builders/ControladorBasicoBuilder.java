@@ -16,8 +16,8 @@ import br.edu.ifba.inf011.model.termometros.TermometroAlta;
 public class ControladorBasicoBuilder implements ControladorBuilder{
 
 	private Double tempMaxima;
-	private List<Termometro> termometros;
-	private Atuador atuador;
+	private List<TermometroAlta> termometros;
+	private Resfriador atuador;
 	private PrintStream saidaRelato;
 	private PrintStream saidaAlarme;
 	private Integer tabAlarme;
@@ -25,7 +25,7 @@ public class ControladorBasicoBuilder implements ControladorBuilder{
 	
 	
 	public ControladorBasicoBuilder() {
-		this.termometros = new ArrayList<Termometro>();
+		this.termometros = new ArrayList<TermometroAlta>();
 	}
 	
 	@Override
@@ -62,13 +62,13 @@ public class ControladorBasicoBuilder implements ControladorBuilder{
 	}
 	
 	public Controlador getControlador() {
-		for(Termometro termometro : this.termometros) {
+		for(TermometroAlta termometro : this.termometros) {
 			termometro.setAmbiente(ambiente);
 			termometro.setSaidaPadrao(this.saidaRelato);
 			termometro.setSaidaAlarme(this.saidaAlarme, this.tabAlarme);
-			((TermometroAlta)termometro).setTempMaxima(this.tempMaxima);
+			termometro.setTempMaxima(this.tempMaxima);
 		}
-		Resfriador resfriador = (Resfriador) atuador;
+		Resfriador resfriador = atuador;
 		resfriador.setSaidaAlarme(this.saidaAlarme, this.tabAlarme);
 		resfriador.setTempAtuacao(this.tempMaxima);
 		
