@@ -4,11 +4,16 @@ import java.io.PrintStream;
 
 import br.edu.ifba.inf011.model.Ambiente;
 import br.edu.ifba.inf011.model.Atuador;
+import br.edu.ifba.inf011.prototype.Prototipo;
 
 public class Estabilizador extends GenericAtuador  implements Atuador{
 
 	private Double tempMinimaAtuacao;
 	private Double tempMaximaAtuacao; 
+	
+	public Estabilizador(Estabilizador atuador) {
+		this(null, atuador.tempMaximaAtuacao, atuador.tempMinimaAtuacao,  atuador.saidaAtuacao, atuador.tabsAtuacao);
+	}
 	
 	public Estabilizador(Ambiente ambiente, Double tempMaximaAtuacao, Double tempMinimaAtuacao) {
 		super(ambiente);
@@ -37,6 +42,11 @@ public class Estabilizador extends GenericAtuador  implements Atuador{
 			return temperatura;
 		}		
 		return 0.0;
+	}
+
+	@Override
+	public Prototipo prototipar() {
+		return new Estabilizador(this);
 	}
 
 }

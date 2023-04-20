@@ -2,7 +2,9 @@ package br.edu.ifba.inf011.model;
 
 import java.io.PrintStream;
 
-public interface Termometro {
+import br.edu.ifba.inf011.prototype.Prototipo;
+
+public interface Termometro extends Prototipo{
 	public double lerTemperatura();
 	public void setAmbiente(Ambiente ambiente);
 	public void setSaidaPadrao(PrintStream saidaPadrao);

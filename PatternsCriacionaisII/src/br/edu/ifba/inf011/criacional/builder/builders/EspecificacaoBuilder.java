@@ -6,6 +6,8 @@ import java.util.Map;
 
 import br.edu.ifba.inf011.criacional.builder.ControladorBuilder;
 import br.edu.ifba.inf011.model.Ambiente;
+import br.edu.ifba.inf011.model.Atuador;
+import br.edu.ifba.inf011.model.Termometro;
 
 public class EspecificacaoBuilder implements ControladorBuilder{
 
@@ -18,13 +20,7 @@ public class EspecificacaoBuilder implements ControladorBuilder{
 	private String ambiente;
 	
 	@Override
-	public void setTemperaturaMaxima(Double d) {
-		this.tempMaxima = d;
-		this.termometros = new HashMap<String, Integer>();
-	}
-
-	@Override
-	public void adicionaTermometroAlta() {
+	public void adicionaTermometro(Termometro termometro) {
 		Integer qtdeTermometros = this.termometros.get("TERMOMETRO_ALTA");
 		if(qtdeTermometros == null)
 			qtdeTermometros = 0;
@@ -33,7 +29,7 @@ public class EspecificacaoBuilder implements ControladorBuilder{
 	}
 
 	@Override
-	public void adicionaResfriador() {
+	public void adicionaAtuador(Atuador atuador) {
 		this.atuador = "Resfriador";
 	}
 

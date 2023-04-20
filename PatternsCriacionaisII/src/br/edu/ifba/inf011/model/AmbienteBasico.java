@@ -2,11 +2,17 @@ package br.edu.ifba.inf011.model;
 
 import java.util.Random;
 
+import br.edu.ifba.inf011.prototype.Prototipo;
+
 public class AmbienteBasico implements Ambiente{
 
 	private	String id;
 	public Double ultimaMedicao;
 
+	public AmbienteBasico(AmbienteBasico ambiente) {
+		this(ambiente.id, ambiente.ultimaMedicao);
+	}
+	
 	public AmbienteBasico(String id) {
 		this(id, 27.0);
 	}	
@@ -54,6 +60,11 @@ public class AmbienteBasico implements Ambiente{
 		Random random = new Random();
 		double temperatura = random.nextDouble() * temperaturaAtuacao;
 		this.ultimaMedicao += temperatura;
+	}
+
+	@Override
+	public Prototipo prototipar() {
+		return new AmbienteBasico(this);
 	}
 	
 	

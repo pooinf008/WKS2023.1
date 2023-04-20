@@ -4,10 +4,15 @@ import java.io.PrintStream;
 
 import br.edu.ifba.inf011.model.Ambiente;
 import br.edu.ifba.inf011.model.Atuador;
+import br.edu.ifba.inf011.prototype.Prototipo;
 
 public class Resfriador extends GenericAtuador implements Atuador{
 
 	private Double tempMaximaAtuacao; 
+	
+	public Resfriador(Resfriador atuador) {
+		this(null, atuador.tempMaximaAtuacao, atuador.saidaAtuacao, atuador.tabsAtuacao);
+	}	
 	
 	public Resfriador() {
 		
@@ -39,6 +44,11 @@ public class Resfriador extends GenericAtuador implements Atuador{
 
 	public void setTempAtuacao(Double tempMaximaAtuacao) {
 		this.tempMaximaAtuacao = tempMaximaAtuacao;
+	}
+
+	@Override
+	public Prototipo prototipar() {
+		return new Resfriador(this);
 	}
 	
 	

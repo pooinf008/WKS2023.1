@@ -1,5 +1,6 @@
 package br.edu.ifba.inf011.model.controladores;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import br.edu.ifba.inf011.model.Ambiente;
@@ -7,14 +8,24 @@ import br.edu.ifba.inf011.model.Atuador;
 import br.edu.ifba.inf011.model.Controlador;
 import br.edu.ifba.inf011.model.Termometro;
 import br.edu.ifba.inf011.model.termometros.TermometroAlta;
+import br.edu.ifba.inf011.prototype.Prototipo;
 
 public class ControladorBasico implements Controlador{
 	
 	private Ambiente ambiente;
-	private List<? extends Termometro> termometros;
+	private List<Termometro> termometros;
 	private Atuador atuador;
 	
-	public ControladorBasico(Ambiente ambiente, List<? extends Termometro> termometros2, 
+	
+	public ControladorBasico(ControladorBasico cb) {
+		this.ambiente = (Ambiente) cb.ambiente.prototipar();
+		this.termometros = new ArrayList<>();
+		for(Termometro termometro : cb.termometros)
+			this.termometros.add((Termometro)termometro.prototipar());
+		this.atuador = (Atuador) cb.atuador.prototipar();
+	}
+	
+	public ControladorBasico(Ambiente ambiente, List<Termometro> termometros2, 
 							  Atuador atuador) {
 		this.ambiente = ambiente;
 		this.termometros = termometros2;
@@ -51,7 +62,22 @@ public class ControladorBasico implements Controlador{
 		return temperatura / this.termometros.size();
 	}
 
-
+	@Override
+	public Prototipo prototipar() {
+		ControladorBasico cb = new ControladorBasico(this.ambiente,
+													 this.termometros,
+													 this.atuador);
+		return cb;
+	}
+	
+	public String getEspecificacao() {
+		String especificacao = "ControladorAlta{\n";
+		especificacao += "\t Quantidade de Termometros : \n";
+		especificacao += "\t\t " + this.termometros.size()  + "\n";
+		especificacao += "\t Tipo de Atuador : " + this.atuador + "\n";
+		especificacao += "\t Ambiente de Atuação : " + this.ambiente.getId() + "\n";
+		return especificacao + "}\n";
+	}	
 	
 
 }

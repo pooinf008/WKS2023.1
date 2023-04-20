@@ -8,6 +8,10 @@ public class GenericAtuador {
 	protected PrintStream saidaAtuacao;
 	protected Integer tabsAtuacao;
 	
+	public GenericAtuador(GenericAtuador atuador) {
+		this(null, atuador.saidaAtuacao, atuador.tabsAtuacao);
+	}
+	
 	public GenericAtuador(Ambiente ambiente, PrintStream saidaAtuacao, Integer tabsAtuacao) {
 		super();
 		this.saidaAtuacao = saidaAtuacao;

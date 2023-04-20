@@ -4,11 +4,17 @@ import java.io.PrintStream;
 
 import br.edu.ifba.inf011.model.Ambiente;
 import br.edu.ifba.inf011.model.Termometro;
+import br.edu.ifba.inf011.prototype.Prototipo;
 
 public class TermometroAlta extends GenericTermometro implements Termometro{
 	
 	private Double tempMaxima;
 
+	public TermometroAlta(TermometroAlta termometroAlta) {
+		this((Ambiente)termometroAlta.ambiente.prototipar(), termometroAlta.tempMaxima,
+			  termometroAlta.saida, termometroAlta.alarme, termometroAlta.tabsAlarme);
+	}	
+	
 	public TermometroAlta() {
 		
 	}
@@ -39,6 +45,11 @@ public class TermometroAlta extends GenericTermometro implements Termometro{
 
 	public void setTempMaxima(double tempMaxima) {
 		this.tempMaxima = tempMaxima;
+	}
+
+	@Override
+	public Prototipo prototipar() {
+		return new TermometroAlta(this);
 	}
 
 

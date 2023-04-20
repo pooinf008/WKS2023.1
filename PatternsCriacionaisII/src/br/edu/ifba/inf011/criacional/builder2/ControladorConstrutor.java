@@ -7,7 +7,9 @@ import java.util.List;
 import br.edu.ifba.inf011.criacional.builder.ControladorBuilder;
 import br.edu.ifba.inf011.criacional.builder.IControladorConstrutor;
 import br.edu.ifba.inf011.model.Ambiente;
+import br.edu.ifba.inf011.model.Atuador;
 import br.edu.ifba.inf011.model.Controlador;
+import br.edu.ifba.inf011.model.Termometro;
 import br.edu.ifba.inf011.model.atuadores.Resfriador;
 import br.edu.ifba.inf011.model.controladores.ControladorBasico;
 import br.edu.ifba.inf011.model.termometros.TermometroAlta;
@@ -15,8 +17,8 @@ import br.edu.ifba.inf011.model.termometros.TermometroAlta;
 public class ControladorConstrutor implements IControladorConstrutor{
 	
 	private Double tempMaxima;
-	private List<TermometroAlta> termometros;
-	private Resfriador atuador;
+	private List<Termometro> termometros;
+	private Atuador atuador;
 	private PrintStream saidaRelato;
 	private PrintStream saidaAlarme;
 	private Integer tabAlarme;
@@ -28,14 +30,14 @@ public class ControladorConstrutor implements IControladorConstrutor{
 	}
 	
 	public ControladorConstrutor() {
-		this.termometros = new ArrayList<TermometroAlta>();
+		this.termometros = new ArrayList<Termometro>();
 		this.reset();
 	}
 	
 	@Override
 	public IControladorConstrutor reset() {
 		this.tempMaxima = 30.0;
-		this.termometros = new ArrayList<TermometroAlta>();
+		this.termometros = new ArrayList<Termometro>();
 		this.atuador = null;
 		this.saidaRelato = System.out;
 		this.saidaAlarme = System.out;
@@ -45,20 +47,14 @@ public class ControladorConstrutor implements IControladorConstrutor{
 	}	
 	
 	@Override
-	public IControladorConstrutor setTemperaturaMaxima(Double tempMaxima) {
-		this.tempMaxima = tempMaxima;
+	public IControladorConstrutor adicionaTermometro(Termometro termometro) {
+		this.termometros.add(termometro);
 		return this;
 	}
 
 	@Override
-	public IControladorConstrutor adicionaTermometroAlta() {
-		this.termometros.add(new TermometroAlta());
-		return this;
-	}
-
-	@Override
-	public IControladorConstrutor adicionaResfriador() {
-		this.atuador = new Resfriador();
+	public IControladorConstrutor adicionaAtuador(Atuador atuador) {
+		this.atuador = atuador;
 		return this;
 	}
 
@@ -85,17 +81,16 @@ public class ControladorConstrutor implements IControladorConstrutor{
 	public Controlador getControlador(Ambiente ambiente) {
 		if(this.termometros.size() == 0)
 			this.termometros.add(new TermometroAlta());
-		for(TermometroAlta termometro : this.termometros) {
+		for(Termometro termometro : this.termometros) {
 			termometro.setAmbiente(ambiente);
 			termometro.setSaidaPadrao(this.saidaRelato);
 			termometro.setSaidaAlarme(this.saidaAlarme, this.tabAlarme);
-			termometro.setTempMaxima(this.tempMaxima);
 		}
-		if(atuador == null)
-			atuador = new Resfriador();
+		if(atuador == null) {
+			atuador = new Resfriador(ambiente, 28.0);
+		}	
 		
 		atuador.setSaidaAlarme(this.saidaAlarme, this.tabAlarme);
-		atuador.setTempAtuacao(this.tempMaxima);
 		
 		Controlador controlador = new ControladorBasico(ambiente, 
 														this.termometros, 

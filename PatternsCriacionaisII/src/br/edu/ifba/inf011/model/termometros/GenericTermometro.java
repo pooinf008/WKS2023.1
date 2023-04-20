@@ -12,6 +12,12 @@ public abstract class GenericTermometro implements Termometro{
 	protected PrintStream alarme;
 	protected Integer tabsAlarme;
 	
+	
+	public GenericTermometro(GenericTermometro termometro) {
+		this((Ambiente)termometro.ambiente.prototipar(), termometro.saida,
+			  termometro.saida, termometro.tabsAlarme);
+	}
+	
 	public GenericTermometro(Ambiente ambiente, PrintStream saida, PrintStream alarme, Integer tabsAlarme) {
 		super();
 		this.ambiente = ambiente;

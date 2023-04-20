@@ -6,6 +6,7 @@ import br.edu.ifba.inf011.criacional.builder.builders.EspecificacaoBuilder;
 import br.edu.ifba.inf011.criacional.builder2.ControladorConstrutor;
 import br.edu.ifba.inf011.model.AmbienteBasico;
 import br.edu.ifba.inf011.model.Controlador;
+import br.edu.ifba.inf011.model.termometros.TermometroAlta;
 
 public class Aplicacao {
 
@@ -15,13 +16,17 @@ public class Aplicacao {
 		IControladorConstrutor b = ControladorConstrutor.builder();
 		
 		Controlador controlador = b.reset()
-							       .adicionaTermometroAlta()
-							       .adicionaTermometroAlta()
-							       .adicionaTermometroAlta()
+							       .adicionaTermometro(new TermometroAlta(ambiente, 28.0))
+							       .adicionaTermometro(new TermometroAlta(ambiente, 28.0))
+							       .adicionaTermometro(new TermometroAlta(ambiente, 28.0))
 								   .getControlador(ambiente);
 		
-		Controlador controlador2 = b.setSaidaRelato(System.err)
-									.getControlador(ambiente);
+		Controlador controlador2 = (Controlador) controlador.prototipar();
+		
+		System.out.println(controlador);
+		System.out.println(controlador.getEspecificacao());
+		System.out.println(controlador2);
+		System.out.println(controlador2.getEspecificacao());
 		
 		controlador.monitorar();
 		
