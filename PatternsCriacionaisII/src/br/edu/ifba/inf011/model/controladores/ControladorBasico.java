@@ -64,18 +64,17 @@ public class ControladorBasico implements Controlador{
 
 	@Override
 	public Prototipo prototipar() {
-		ControladorBasico cb = new ControladorBasico(this.ambiente,
-													 this.termometros,
-													 this.atuador);
-		return cb;
+		return new ControladorBasico(this);
 	}
 	
 	public String getEspecificacao() {
-		String especificacao = "ControladorAlta{\n";
+		String especificacao = this.getClass().getSimpleName()  + " {\n";
 		especificacao += "\t Quantidade de Termometros : \n";
 		especificacao += "\t\t " + this.termometros.size()  + "\n";
+		for(Termometro t : this.termometros)
+			especificacao += "\t\t"+ t + "\n"; 
 		especificacao += "\t Tipo de Atuador : " + this.atuador + "\n";
-		especificacao += "\t Ambiente de Atuação : " + this.ambiente.getId() + "\n";
+		especificacao += "\t Ambiente de Atuação : " + this.ambiente + "\n";
 		return especificacao + "}\n";
 	}	
 	

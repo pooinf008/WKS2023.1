@@ -8,7 +8,6 @@ import br.edu.ifba.inf011.prototype.Prototipo;
 
 public class TermometroFaixa extends GenericTermometro implements Termometro{
 	
-	private Ambiente ambiente;
 	private Double tempMaxima;
 	private Double tempMinima;
 	
