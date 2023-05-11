@@ -2,7 +2,7 @@ package br.edu.ifba.inf011.model.controladores;
 
 import br.edu.ifba.inf011.model.Ambiente;
 import br.edu.ifba.inf011.model.Termometro;
-import br.edu.ifba.inf011.model.TipoControlador;
+import br.edu.ifba.inf011.strategy.TipoControlador;
 
 public class ControladorBasicoMedia extends ControladorBasico{
 
