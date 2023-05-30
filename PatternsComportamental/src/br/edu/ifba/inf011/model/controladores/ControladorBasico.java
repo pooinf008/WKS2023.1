@@ -16,6 +16,8 @@ import br.edu.ifba.inf011.model.Controlador;
 import br.edu.ifba.inf011.model.Termometro;
 import br.edu.ifba.inf011.model.atuadores.Resfriador;
 import br.edu.ifba.inf011.model.termometros.TermometroAlta;
+import br.edu.ifba.inf011.observer.BateriaBaixaListener;
+import br.edu.ifba.inf011.observer.NovoCicloListener;
 import br.edu.ifba.inf011.state.ControladorState;
 import br.edu.ifba.inf011.state.LigadoState;
 import br.edu.ifba.inf011.strategy.CalculoTemperaturaMedia;
@@ -23,6 +25,10 @@ import br.edu.ifba.inf011.strategy.CalculoTemperaturaStrategy;
 import br.edu.ifba.inf011.strategy.TipoControlador;
 
 public class ControladorBasico implements Controlador{
+	
+	protected List<NovoCicloListener> listeners;
+	protected List<BateriaBaixaListener> bbListeners;
+	
 	
 	protected Ambiente ambiente;
 	protected List<Termometro> termometros;
@@ -39,7 +45,13 @@ public class ControladorBasico implements Controlador{
 	protected MonitorarHandler handler;
 	
 	
+	
+	
 	public ControladorBasico(TipoControlador tipo, Ambiente ambiente, Integer qtdeTermometros, Double tempMaxima) {
+		
+			this.listeners = new ArrayList<NovoCicloListener>();
+			this.bbListeners = new ArrayList<BateriaBaixaListener>();
+		
 			this.ambiente = ambiente;
 			this.termometros = new ArrayList<Termometro>();
 			
@@ -89,7 +101,9 @@ public class ControladorBasico implements Controlador{
 		}else
 			temperatura =  0;
 		this.ciclos++;
-		System.out.println(">>" + this.ciclos + " TEMPERATURA AMBIENTE "+ this.ambiente.getTemperatura() +  " Bateria: " + this.bateria +" <<");
+		this.notifyNovoCiclo(this.ciclos, this.ambiente.getTemperatura(), this.bateria);
+		if(this.bateria < 25)
+			this.notifyBateriaBaixa(this.ciclos, this.bateria);
 		this.ambiente.setTemperaturaAtuacao(this.atuador.definirTemperatura(temperatura));
 	}
 	
@@ -219,5 +233,34 @@ public class ControladorBasico implements Controlador{
 		System.out.println("Recarga");
 		return +0.5;
 	}	
+	
+	
+	public void addNovoCicloListener(NovoCicloListener listener) {
+		this.listeners.add(listener);
+	}
 
+	public void removeNovoCicloListener(NovoCicloListener listener) {
+		this.listeners.remove(listener);
+	}
+	
+	
+	public void notifyNovoCiclo(Integer ciclo, Double temperatura, Double bateria) {
+		for(NovoCicloListener listener : this.listeners)
+			listener.onNovoCiclo(ciclo, temperatura, bateria);
+	}
+	
+	public void addBateriaBaixaListener(BateriaBaixaListener listener) {
+		this.bbListeners.add(listener);
+	}
+
+	public void removeBateriaBaixaListener(BateriaBaixaListener listener) {
+		this.bbListeners.remove(listener);
+	}
+	
+	
+	public void notifyBateriaBaixa(Integer ciclo, Double bateria) {
+		for(BateriaBaixaListener bbListener : this.bbListeners)
+			bbListener.onBateriaBaixa(ciclo,  bateria);
+	}	
+	
 }
