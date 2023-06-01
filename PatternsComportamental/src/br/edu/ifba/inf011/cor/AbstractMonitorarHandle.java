@@ -5,7 +5,7 @@ import java.util.List;
 import br.edu.ifba.inf011.model.Termometro;
 
 public abstract class AbstractMonitorarHandle implements MonitorarHandler{
-
+	
 	private MonitorarHandler proximo;
 	
 	public AbstractMonitorarHandle(MonitorarHandler proximo) {

@@ -10,6 +10,7 @@ import br.edu.ifba.inf011.cor.HandlerHalfMaxima;
 import br.edu.ifba.inf011.cor.HandlerHalfMedia;
 import br.edu.ifba.inf011.cor.HandlerRecarga;
 import br.edu.ifba.inf011.cor.MonitorarHandler;
+import br.edu.ifba.inf011.memento.NarrowSnapshot;
 import br.edu.ifba.inf011.model.Ambiente;
 import br.edu.ifba.inf011.model.Atuador;
 import br.edu.ifba.inf011.model.Controlador;
@@ -23,6 +24,7 @@ import br.edu.ifba.inf011.state.LigadoState;
 import br.edu.ifba.inf011.strategy.CalculoTemperaturaMedia;
 import br.edu.ifba.inf011.strategy.CalculoTemperaturaStrategy;
 import br.edu.ifba.inf011.strategy.TipoControlador;
+import br.edu.ifba.inf011.memento.Snapshot;
 
 public class ControladorBasico implements Controlador{
 	
@@ -261,6 +263,39 @@ public class ControladorBasico implements Controlador{
 	public void notifyBateriaBaixa(Integer ciclo, Double bateria) {
 		for(BateriaBaixaListener bbListener : this.bbListeners)
 			bbListener.onBateriaBaixa(ciclo,  bateria);
+	}
+
+	@Override
+	public void restore(NarrowSnapshot nSnapshot) {
+		Snapshot snapshot = (Snapshot)nSnapshot;
+		this.bateria = snapshot.getBateria();
+		this.ciclos = snapshot.getCiclo();
+		this.historico = snapshot.getHistorico();
+	}
+
+	@Override
+	public NarrowSnapshot save(String id) {
+		Snapshot snapshot = new Snapshot();
+		snapshot.setId(id);
+		snapshot.setBateria(this.bateria);
+		snapshot.setCiclo(this.ciclos);
+		snapshot.setHistorico(this.historico);
+		return snapshot;
+	}
+
+	@Override
+	public Double getBateria() {
+		return this.bateria;
+	}
+
+	@Override
+	public Integer getCiclos() {
+		return this.ciclos;
+	}
+
+	@Override
+	public List<Double> getHistorico() {
+		return this.historico;
 	}	
 	
 }
