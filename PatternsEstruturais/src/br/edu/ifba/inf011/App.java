@@ -4,6 +4,27 @@ import java.util.ArrayList;
 
 public class App {
 	
+	private void run2() throws Exception {
+		Cesta cesta = new CestaProxy(new CestaService(), "USER", "PWD");
+		
+		cesta.adicionar(new Caixa("Cx01"));
+		cesta.adicionar("Cx01",	new SeguroProduto(new Product2Produto(new Product("G01", "Vision Pro", 3500.0, 1.0))));
+		cesta.adicionar(new Caixa("Cx02"));
+		cesta.adicionar("Cx02", new Produto("M01", "Martelo", 15.0, 0.6));
+		cesta.adicionar(new Caixa("Cx04"));
+		cesta.adicionar("Cx04", new EmbalagemProduto(new Produto("T01", "Telefone", 300.0, 0.15)));
+		cesta.adicionar("Cx04", new EmbalagemProduto(new SeguroProduto(new Produto("H01", "Fone de Ouvido", 500.0, 0.05))));
+		cesta.adicionar(new Caixa("Cx05"));
+		cesta.adicionar("Cx05", new SeguroProduto(new Produto("C01", "Carregador", 200.0, 0.10)));
+		
+		System.out.println(cesta.getPreco());
+		System.out.println(cesta.getPeso());
+		
+		
+	}	
+	
+	
+	
 	private void run() {
 		
 		Remetivel martelo = new Produto("M01", "Martelo", 15.0, 0.6);
@@ -14,11 +35,11 @@ public class App {
 		
 		Remetivel oculos = new SeguroProduto(new Product2Produto(new Product("G01", "Vision Pro", 3500.0, 1.0)));
 		
-		Caixa caixa01 = new Caixa();
-		Caixa caixa02 = new Caixa();
-		Caixa caixa03 = new Caixa();
-		Caixa caixa04 = new Caixa();
-		Caixa caixa05 = new Caixa();
+		Caixa caixa01 = new Caixa("Cx01");
+		Caixa caixa02 = new Caixa("Cx02");
+		Caixa caixa03 = new Caixa("Cx03");
+		Caixa caixa04 = new Caixa("Cx04");
+		Caixa caixa05 = new Caixa("Cx05");
 		
 		caixa02.adicionar(martelo);
 		caixa04.adicionar(telefone);
@@ -38,8 +59,8 @@ public class App {
 	}	
 	
 	
-	public static void main(String[] args) {
-		(new App()).run();
+	public static void main(String[] args) throws Exception {
+		(new App()).run2();
 	}
 
 

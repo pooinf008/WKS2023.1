@@ -3,23 +3,28 @@ package br.edu.ifba.inf011;
 import java.util.ArrayList;
 import java.util.List;
 
-//COMPOSITE em um COMPOSITE
-public class Caixa implements Remetivel{
+public class CestaService implements Cesta {
 	
-	public List<Remetivel> remetiveis;
-	private String id;
+	private List<Remetivel> remetiveis;
 	
-	
-	public Caixa(String id) {
-		this.id = id;
+	public CestaService() {
 		this.remetiveis = new ArrayList<Remetivel>();
 	}
-
-	public void adicionar(Remetivel remetivel) {
+	
+	public void adicionar(Remetivel remetivel) throws Exception{
 		this.remetiveis.add(remetivel);
 	}
 	
-
+	public void adicionar(String continente,
+						  Remetivel conteudo) throws Exception{
+		for(Remetivel remetivel : this.remetiveis)
+			if(remetivel.getId().equals(continente)) {
+				remetivel.adicionar(conteudo);
+				return;
+			}	
+		throw new Exception("Caixa inexistente");
+	}
+	
 	@Override
 	public Double getPeso() {
 		Double peso = 0.0;
@@ -36,17 +41,7 @@ public class Caixa implements Remetivel{
 		for(Remetivel remetivel : this.remetiveis)
 			preco += remetivel.getPreco();
 		return preco;
-	}
-
-	@Override
-	public String getId() {
-		return this.id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
+	}	
 	
 	
-
 }

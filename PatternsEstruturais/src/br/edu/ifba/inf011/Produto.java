@@ -48,7 +48,10 @@ public class Produto implements Remetivel, RemetivelDecoravel{
 		return Objects.equals(id, other.id);
 	}
 	
-	
+	@Override
+	public void adicionar(Remetivel remetivel) {
+		
+	}	
 	
 	
 

@@ -21,6 +21,14 @@ public abstract class BaseRemetivelDecorator implements RemetivelDecoravel{
 		return decoravel.getPreco();
 	}
 	
+	public void adicionar(Remetivel remetivel) {
+		this.decoravel.adicionar(remetivel);
+	}
+	
+	public String getId() {
+		return this.decoravel.getId();
+	}	
+	
 	
 
 }

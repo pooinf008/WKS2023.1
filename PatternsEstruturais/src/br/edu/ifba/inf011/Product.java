@@ -38,8 +38,10 @@ public class Product {
 	public Double getWeight() {
 		return weight;
 	}
-	
-	
-	
+
+
+	public void setId(String id) {
+		this.id = id;
+	}
 
 }
